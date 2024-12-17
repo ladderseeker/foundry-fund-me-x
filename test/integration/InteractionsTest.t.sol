@@ -22,30 +22,30 @@ contract InteractionsTest is Test {
 
     function testUserCanFundAndOwnerCanWithDraw() public {
         address contractOwner = fundMe.getOwner();
-        console.log("Owner address {}", address(contractOwner));
+        console.log("Owner address: ", address(contractOwner));
 
         // Check contract balance
         uint256 preContractBalance = address(fundMe).balance;
-        console.log("Contract balance {}", preContractBalance);
+        console.log("Pre Contract balance: ", preContractBalance);
 
         // Check Owner balance
         uint256 preOwnerBalance = address(contractOwner).balance;
-        console.log("Owner balance {}", preOwnerBalance);
+        console.log("Pre Owner balance: ", preOwnerBalance);
 
         FundFundMe fundFundMe = new FundFundMe();
         fundFundMe.fundFundMe(address(fundMe));
 
         // Check contract balance after fund
         uint256 afterContractBalance = address(fundMe).balance;
-        console.log("Contract balance after fund {}", afterContractBalance);
+        console.log("Contract balance after fund: ", afterContractBalance);
 
         // Check Owner balance after fund
         uint256 afterOwnerBlance = address(contractOwner).balance;
-        console.log("Owner balance after fund {}", afterOwnerBlance);
+        console.log("Owner balance after fund: ", afterOwnerBlance);
 
         // Check gap between the two balance
         uint256 gap = preOwnerBalance - afterOwnerBlance;
-        console.log("Gap between owner balance before and after fund {}", gap);
+        console.log("Gap between owner balance before and after fund: ", gap);
 
         WithdrawFundMe withdrawFundMe = new WithdrawFundMe();
         withdrawFundMe.withdrawFundMe(address(fundMe));
@@ -53,18 +53,18 @@ contract InteractionsTest is Test {
         // Check contract balance after withdraw
         uint256 afterWithdrawContractBalance = address(fundMe).balance;
         console.log(
-            "Contract balance after withdraw {}",
+            "Contract balance after withdraw: ",
             afterWithdrawContractBalance
         );
 
         // Check Owner balance after withdraw
         uint256 afterWithdrawOwnerBlance = address(contractOwner).balance;
-        console.log(
-            "Owner balance after withdraw {}",
-            afterWithdrawOwnerBlance
-        );
+        console.log("Owner balance after withdraw: ", afterWithdrawOwnerBlance);
 
         assert(address(fundMe).balance == 0);
-        assertEq(afterWithdrawOwnerBlance, preOwnerBalance);
+        assertEq(
+            afterWithdrawOwnerBlance,
+            preOwnerBalance + preContractBalance
+        );
     }
 }
