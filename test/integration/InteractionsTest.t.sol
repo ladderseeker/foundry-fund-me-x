@@ -24,6 +24,9 @@ contract InteractionsTest is Test {
         address contractOwner = fundMe.getOwner();
         console.log("Owner address: ", address(contractOwner));
 
+        address fundMeAddress = address(fundMe);
+        console.log("FundMe address: ", fundMeAddress);
+
         // Check contract balance
         uint256 preContractBalance = address(fundMe).balance;
         console.log("Pre Contract balance: ", preContractBalance);
