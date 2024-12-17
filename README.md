@@ -43,8 +43,9 @@ anvil
 make deploy
 ```
 
+or
+
 ```shell
-# Or
 forge script script/DeployFundMe.s.sol
 ```
 
@@ -63,10 +64,14 @@ make test
 ```
 
 ```shell
-forge test --match-test xxx-method --fork-url ${SEPOLIA_RPC_URL}
+forge test --match-test ${method-name} --fork-url ${SEPOLIA_RPC_URL}
 ```
 
-## Interaction
+## Interactions
+
+### Local
+
+Start anvil by `anvil` and deploy locally `make deploy`
 
 ```shell
 make fund
@@ -76,13 +81,49 @@ make fund
 make withdraw
 ```
 
-# Addition
+### Sepolia
+
+- **Call view method**
+
+```shell
+cast call $SEPOLIA_CONTRACT_ADDRESS "getOwner()" --rpc-url $SEPOLIA_RPC_URL
+```
+
+```shell
+cast call $SEPOLIA_CONTRACT_ADDRESS "getFunder(uint256)" 0 --rpc-url $SEPOLIA_RPC_URL
+```
+
+```shell
+cast call $SEPOLIA_CONTRACT_ADDRESS "getAddressToAmountFunded(address)" $FUNDER_ADDRESS --rpc-url $SEPOLIA_RPC_URL
+```
+
+- **Call fund && wihtdraw**
+
+```shell
+cast send $SEPOLIA_CONTRACT_ADDRESS "fund()" --value 0.05ether --account $ACCOUNT
+```
+
+or
+
+```shell
+forge script script/Interactions.s.sol:FundFundMe --rpc-url $SEPOLIA_RPC_URL  --account $ACCOUNT  --broadcast
+forge script script/Interactions.s.sol:WithdrawFundMe --rpc-url $SEPOLIA_RPC_URL --account $ACCOUNT --broadcast
+```
+
+# Additions
 
 ## Impot wallet
+
 ```
 # import
 cast wallet import ${your-account-name} --interactive
 
 # usage
 forge script <script> --rpc-url <rpc_url> --account <account_name> --sender <address> --broadcast
+```
+
+## Number convert
+
+```shell
+cast --to-base 0x01 dec
 ```
