@@ -1,66 +1,54 @@
-## Foundry
+# Solidity Ccourse - Foundry Fund Me
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+# Intorduction
 
-Foundry consists of:
+This is the Solidity && Foundry follow-alone course project of [Cyfrin Updraft](https://updraft.cyfrin.io/), with a basic FundMe contract with deployment script, test and quick start. The FundMe contract are deployed on Sepolia testnet, the address is 0x312423.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+# Getting Started
 
-## Documentation
+## Requirements
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- [foundry](https://getfoundry.sh/)
+  
 ```shell
-$ forge build
+foundryup
+
+forge --version
+# forge 0.2.0 (206dab2 2024-12-16T00:25:12.607328550Z)
 ```
 
-### Test
+## Quickstart
 
-```shell
-$ forge test
+```
+git clone https://github.com/xxxx
+cd foundry-fund-me-cu
+make
 ```
 
-### Format
+# Usage
+
+## Deploy
 
 ```shell
-$ forge fmt
+forge script script/DeployFundMe.s.sol
 ```
 
-### Gas Snapshots
+## Testing
 
-```shell
-$ forge snapshot
+```
+forge test
 ```
 
-### Anvil
+# Addition
 
-```shell
-$ anvil
+## Impot wallet
+```
+# import
+cast wallet import ${your-account-name} --interactive
+
+# usage
+forge script <script> --rpc-url <rpc_url> --account <account_name> --sender <address> --broadcast
 ```
 
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## 
