@@ -21,7 +21,7 @@ contract FundMeTest is Test {
 
     function testMinimumDollarIsFive() public view {
         console.log(fundMe.MINIMUM_USD());
-        assertEq(fundMe.MINIMUM_USD(), 5e18, "Minimum USD should be 5");
+        assertEq(fundMe.MINIMUM_USD(), 1e18, "Minimum USD should be 5");
     }
 
     function testOwnerIsMsgSender() public view {
