@@ -5,41 +5,50 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  FOUNDRY_PROFILE: ci
-
 jobs:
-  check:
-    strategy:
-      fail-fast: true
-
-    name: Foundry project
+  build-and-test:
+    name: Build and Test
     runs-on: ubuntu-latest
+    env:
+      FOUNDRY_PROFILE: ci
     steps:
-      - uses: actions/checkout@v4
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
+      # Step 2: Clean up Foundry cache and submodules
+      - name: Clean up Foundry and submodules
+        run: |
+          forge clean
+          rm -rf .gitmodules
+          rm -rf .git/modules/*
+          rm -rf lib
+          touch .gitmodules
+
+      # Step 3: Set up Foundry
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
 
+      # Step 4: Display Forge version (optional)
       - name: Show Forge version
-        run: |
-          forge --version
+        run: forge --version
 
+      # Step 5: Install dependencies using your Makefile
+      - name: Install dependencies
+        run: make install
+
+      # Step 6: Format code (optional)
       - name: Run Forge fmt
-        run: |
-          forge fmt --check
-        id: fmt
+        run: forge fmt --check
 
-      - name: Run Forge build
-        run: |
-          forge build --sizes
-        id: build
+      # Step 7: Build your project
+      - name: Build project
+        run: make build
 
-      - name: Run Forge tests
-        run: |
-          forge test -vvv
-        id: test
+      # Step 8: Run tests
+      - name: Run tests
+        run: make test
