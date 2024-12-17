@@ -43,7 +43,7 @@ jobs:
 
       # Step 6: Format code (optional)
       - name: Run Forge fmt
-        run: forge fmt --check
+        run: make format
 
       # Step 7: Build your project
       - name: Build project
