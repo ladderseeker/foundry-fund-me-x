@@ -29,8 +29,12 @@ contract FundMeTest is Test {
     }
 
     function testPriceFeedVersionIsAccurate() public view {
+        uint256 chainVersion = 4;
+        if (block.chainid == 1) {
+            chainVersion = 6;
+        }
         uint256 version = fundMe.getVersion();
-        assertEq(version, 4);
+        assertEq(version, chainVersion);
     }
 
     function testFundFailWihtoutEnoughETH() public {
@@ -79,7 +83,10 @@ contract FundMeTest is Test {
         uint256 endingOwnerBalance = address(fundMe.getOwner()).balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
 
-        assertEq(endingOwnerBalance, startingOwnerBalance + startingFundMeBalance);
+        assertEq(
+            endingOwnerBalance,
+            startingOwnerBalance + startingFundMeBalance
+        );
         assertEq(endingFundMeBalance, 0);
     }
 
@@ -103,7 +110,10 @@ contract FundMeTest is Test {
         // Assert
         uint256 endingOwnerBalance = address(fundMe.getOwner()).balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
-        assertEq(endingOwnerBalance, startingOwnerBalance + startingFundMeBalance);
+        assertEq(
+            endingOwnerBalance,
+            startingOwnerBalance + startingFundMeBalance
+        );
         assertEq(endingFundMeBalance, 0);
     }
 }
