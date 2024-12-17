@@ -57,6 +57,12 @@ forge script script/DeployFundMe.s.sol
 make deploy-sepolia ARGS="--network sepolia"
 ```
 
+or
+
+```shell
+forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --account $ACCOUNT --broadcast --verify --etherscan-api-key $ETHERSCAN_API_KEY
+```
+
 ## Testing
 
 ```shell
@@ -101,12 +107,15 @@ cast call $SEPOLIA_CONTRACT_ADDRESS "getAddressToAmountFunded(address)" $FUNDER_
 
 ```shell
 cast send $SEPOLIA_CONTRACT_ADDRESS "fund()" --value 0.05ether --account $ACCOUNT
+
+cast send $SEPOLIA_CONTRACT_ADDRESS "withdraw()"  --account $ACCOUNT
 ```
 
 or
 
 ```shell
 forge script script/Interactions.s.sol:FundFundMe --rpc-url $SEPOLIA_RPC_URL  --account $ACCOUNT  --broadcast
+
 forge script script/Interactions.s.sol:WithdrawFundMe --rpc-url $SEPOLIA_RPC_URL --account $ACCOUNT --broadcast
 ```
 
@@ -126,4 +135,22 @@ forge script <script> --rpc-url <rpc_url> --account <account_name> --sender <add
 
 ```shell
 cast --to-base 0x01 dec
+```
+
+## Estimate gas
+
+```shell
+forge snapshot
+```
+
+## Formatting
+
+```shell
+forge fmt
+```
+
+## Test Coverage
+
+```shell
+forge coverage
 ```
