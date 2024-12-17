@@ -23,8 +23,8 @@ forge --version
 ## Quickstart
 
 ```
-git clone https://github.com/xxxx
-cd foundry-fund-me-cu
+git clone https://github.com/ladderseeker/foundry-fund-me-x.git
+cd foundry-fund-me-x
 make
 ```
 
@@ -35,6 +35,15 @@ make
 - Local
 
 ```shell
+# Start anvil locally
+
+anvil
+```
+
+```shell
+make deploy
+
+# Or
 forge script script/DeployFundMe.s.sol
 ```
 
