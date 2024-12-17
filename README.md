@@ -36,13 +36,14 @@ make
 
 ```shell
 # Start anvil locally
-
 anvil
 ```
 
 ```shell
 make deploy
+```
 
+```shell
 # Or
 forge script script/DeployFundMe.s.sol
 ```
@@ -57,12 +58,22 @@ make deploy-sepolia ARGS="--network sepolia"
 
 ## Testing
 
-```
+```shell
 make test
 ```
 
-```
+```shell
 forge test --match-test xxx-method --fork-url ${SEPOLIA_RPC_URL}
+```
+
+## Interaction
+
+```shell
+make fund
+```
+
+```shell
+make withdraw
 ```
 
 # Addition
