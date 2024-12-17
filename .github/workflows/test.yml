@@ -18,7 +18,13 @@ jobs:
         with:
           submodules: recursive
 
-      # Step 2: Clean up Foundry cache and submodules
+      # Step 2: Set up Foundry
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      # Step 3: Clean up Foundry cache and submodules
       - name: Clean up Foundry and submodules
         run: |
           forge clean
@@ -26,12 +32,6 @@ jobs:
           rm -rf .git/modules/*
           rm -rf lib
           touch .gitmodules
-
-      # Step 3: Set up Foundry
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
 
       # Step 4: Display Forge version (optional)
       - name: Show Forge version
